@@ -1,15 +1,28 @@
-const express = require('express');
+const express = require("express");
+const dotenv = require('dotenv');
+const morgan = require('morgan');
+const cors = require('cors');
+const connectDB = require("./config/db");
+
+// dotenv config
+dotenv.config();
+
+//rest object
 const app = express();
 
-const PORT = 8080;
+//port
+const PORT = process.env.PORT || 8080;
 
-app.get('/',(req,res)=>{
-  // res.status(200).json({
-  //   message: "Welcome to Blood bank web app",
-  // })
-  res.status(200).send('<h2>Welcome to Blood bank web app</h2>');
-})
+// database connection
+connectDB();
 
-app.listen(PORT,()=>{
-  console.log(`Server running successfully on port ${PORT}`);
-})
+// middlewares
+app.use(morgan("dev"));
+app.use(cors());
+app.use(express.json());
+
+app.use("/api/v1", require("./routes/testRoute"));
+
+app.listen(PORT, () => {
+  console.log(`Server running successfully in ${process.env.DEV_MODE} mode on port ${PORT}`);
+});
