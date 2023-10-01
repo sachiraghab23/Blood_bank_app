@@ -1,4 +1,4 @@
-const userModel = require("./../models/userModel");
+const userModel = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const registerController = async (req, res) => {
@@ -41,6 +41,13 @@ const loginController = async (req, res) => {
         message: "User not found",
       });
     }
+    //check role
+    if (user.role !== req.body.role) {
+      return res.status(500).send({
+        success: false,
+        role: "role doesn't match",
+      });
+    }
     const comparePassword = await bcrypt.compare(
       req.body.password,
       user.password
@@ -51,14 +58,13 @@ const loginController = async (req, res) => {
         message: "Invalid credentials",
       });
     }
-    const token = jwt.sign({ userid: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
     return res.status(200).send({
       success: true,
       messsage: "Login successful",
       token,
-      user,
     });
   } catch (error) {
     console.log(error);
@@ -69,4 +75,21 @@ const loginController = async (req, res) => {
     });
   }
 };
-module.exports = { registerController, loginController };
+const currentUserController = async (req, res) => {
+  try {
+    const user = await userModel.findOne({ _id: req.body.userId });
+    return res.status(200).send({
+      success: true,
+      message: "User fetched successfully",
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Unable to get current user",
+      error,
+    });
+  }
+};
+module.exports = { registerController, loginController, currentUserController };
