@@ -21,7 +21,7 @@ app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/v1", require("./routes/testRoute"));
+app.use("/api/v1", require("./routes/userRoutes"));
 
 app.listen(PORT, () => {
   console.log(`Server running successfully in ${process.env.DEV_MODE} mode on port ${PORT}`);

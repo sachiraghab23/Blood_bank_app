@@ -1,37 +1,37 @@
 const mongoose = require("mongoose");
-const userModel = mongoose.model(
+const userScema = new mongoose.Schema(
   {
-    role:{
-      type:String,
-      required:[true,'role is required'],
-      enum:['admin','user','organisation','hospital']
+    role: {
+      type: String,
+      required: [true, "role is required"],
+      enum: ["admin", "user", "organisation", "hospital"],
     },
-    name:{
-      type:String,
-      required:function(){
-        if(this.role==='user' || this.role==='admin'){
+    name: {
+      type: String,
+      required: function () {
+        if (this.role === "user" || this.role === "admin") {
           return true;
         }
         return false;
-      }
+      },
     },
-    organisationalName:{
-      type:String,
-      required: function(){
-        if(this.role==='organisation'){
+    organisationalName: {
+      type: String,
+      required: function () {
+        if (this.role === "organisation") {
           return true;
         }
         return false;
-      }
+      },
     },
-    hospitalName:{
-      type:String,
-      required:function(){
-        if(this.role==='hospital'){
+    hospitalName: {
+      type: String,
+      required: function () {
+        if (this.role === "hospital") {
           return true;
         }
         return false;
-      }
+      },
     },
     phone: { type: String, required: [true, "phone number is required"] },
     email: {
@@ -48,3 +48,5 @@ const userModel = mongoose.model(
   },
   { timestamps: true }
 );
+
+module.exports = mongoose.model("users", userScema);
