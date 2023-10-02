@@ -1,6 +1,6 @@
 import React from "react";
-import loginImage from "./../../assets/images/bannerImage.jpeg";
-import InputType from "../../components/shared/Form/InputType";
+import loginImage from "./../../assets/images/bannerImage5.png";
+import SharedForm from "../../components/shared/Form/SharedForm";
 
 const Login = () => {
   return (
@@ -10,23 +10,11 @@ const Login = () => {
           <img src={loginImage} alt="loginImage" />
         </div>
         <div className="col-md-4 form-container">
-          <form>
-            <InputType
-              labelText={"Email address"}
-              labelFor={"forEmail"}
-              inputType={"email"}
-              name={"email"}
-            />
-            <InputType
-              labelText={"Password"}
-              labelFor={"forPassword"}
-              inputType={"password"}
-              name={"password"}
-            />
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
-          </form>
+          <SharedForm
+            formTitle={"Login Page"}
+            submitBtn={"Login"}
+            formType={"login"}
+          />
         </div>
       </div>
     </>

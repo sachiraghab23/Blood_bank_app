@@ -1,9 +1,24 @@
-import React from 'react'
+import React from "react";
+import registerImage from "./../../assets/images/bannerImage4.jpeg";
+import SharedForm from "./../../components/shared/Form/SharedForm";
 
 const Register = () => {
   return (
-    <div>Register</div>
-  )
-}
+    <>
+      <div className="row g-0">
+        <div className="col-md-8 form-banner">
+          <img src={registerImage} alt="registerImage" height="400px" />
+        </div>
+        <div className="col-md-4 form-container">
+          <SharedForm
+            formTitle={"Register Page"}
+            submitBtn={"Register"}
+            formType={"register"}
+          />
+        </div>
+      </div>
+    </>
+  );
+};
 
-export default Register
+export default Register;

@@ -4,8 +4,9 @@
   box-sizing: border-box;
 }
 
-.form-banner{
-  height:100%;
+
+.form-banner img{
+  height:100vh;
   width:100%;
 }
 
