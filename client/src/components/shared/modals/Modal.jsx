@@ -31,7 +31,7 @@ const Modal = () => {
   }
 
   return (
-    <div className="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard='false'>
+    <div className="modal fade" id="staticBackdrop" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard='false'>
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">

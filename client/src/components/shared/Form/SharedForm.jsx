@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import InputType from "./InputType";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { handleLogin, handleRegister } from "../../../services/authService";
 
 const SharedForm = ({ submitBtn, formTitle, formType }) => {
@@ -15,11 +15,23 @@ const SharedForm = ({ submitBtn, formTitle, formType }) => {
   const [phone, setPhone] = useState("");
   return (
     <>
-      <form onSubmit={(e)=>{
-        if(formType==='login'){
-          return handleLogin(e,email,password,role);
-        }else if(formType === 'register'){
-          return handleRegister(e, name, organisationName, hospitalName, phone, email, website, address, password);
+      <form onSubmit={(e) => {
+        if (formType === 'login') {
+          return handleLogin(e, email, password, role);
+        } else if (formType === 'register') {
+          // console.log(e);
+          // return;
+
+          return handleRegister(e,
+            name,
+            role,
+            email,
+            password,
+            phone,
+            organisationName,
+            address,
+            hospitalName,
+            website);
         }
       }}>
         <h1 className="text-center">{formTitle}</h1>

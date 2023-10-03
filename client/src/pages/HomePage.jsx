@@ -26,6 +26,7 @@ const HomePage = () => {
 
   useEffect(() => {
     getBloodRecords();
+    // eslint-disable-next-line
   }, []);
 
   return (
