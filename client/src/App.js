@@ -5,6 +5,11 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import ProtectedRoutes from "./components/Routes/ProtectedRoutes";
 import PublicRoutes from "./components/Routes/PublicRoutes";
+import Donor from "./components/shared/Layout/Dashboard/Donor";
+import Hospital from "./components/shared/Layout/Dashboard/Hospital";
+import Organisation from "./components/shared/Layout/Dashboard/Organisation";
+import Consumer from "./components/shared/Layout/Dashboard/Consumer";
+import Donation from "./components/shared/Layout/Dashboard/Donation";
 
 function App() {
   return (
@@ -14,6 +19,26 @@ function App() {
         <Route path="/" element={
         <ProtectedRoutes>
           <HomePage />
+        </ProtectedRoutes>} />
+        <Route path="/donor" element={
+        <ProtectedRoutes>
+          <Donor />
+        </ProtectedRoutes>} />
+        <Route path="/organisation" element={
+        <ProtectedRoutes>
+          <Organisation />
+        </ProtectedRoutes>} />
+        <Route path="/consumer" element={
+        <ProtectedRoutes>
+          <Consumer />
+        </ProtectedRoutes>} />
+        <Route path="/donation" element={
+        <ProtectedRoutes>
+          <Donation />
+        </ProtectedRoutes>} />
+        <Route path="/hospital" element={
+        <ProtectedRoutes>
+          <Hospital />
         </ProtectedRoutes>} />
         <Route path="/login" element={
           <PublicRoutes>

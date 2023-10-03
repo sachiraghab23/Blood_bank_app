@@ -180,6 +180,7 @@ const SharedForm = ({ submitBtn, formTitle, formType }) => {
                 </>
               );
             }
+            default: return;
           }
         })()}
 

@@ -29,7 +29,7 @@ export const userRegister = createAsyncThunk(
     try {
       const {data} = await API.post('/auth/register',authDetails);
       if(data.success){
-        toast.success('User registered successfully');
+        alert('User registered successfully');
         window.location.replace('/login');
       }
     } catch (error) {
