@@ -3,7 +3,7 @@ import { getCurrentUser, userLogin, userRegister } from "./authActions";
 
 const token = localStorage.getItem('token') ? localStorage.getItem('token') : null;
 
-const initialSlice = {
+const initialState = {
   loading: false,
   user: null,
   token,
@@ -12,7 +12,7 @@ const initialSlice = {
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: initialSlice,
+  initialState: initialState,
   reducers: {},
   extraReducers: (builder)=>{
     //login user
@@ -23,6 +23,7 @@ const authSlice = createSlice({
     builder.addCase(userLogin.fulfilled, (state, {payload}) => {
       state.loading = false;
       state.user = payload.user;
+      state.token = payload.token;
     });
     builder.addCase(userLogin.rejected,(state,{payload})=>{
       state.loading = false;

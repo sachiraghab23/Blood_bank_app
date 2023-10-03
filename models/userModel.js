@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const userScema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     role: {
       type: String,
@@ -15,7 +15,7 @@ const userScema = new mongoose.Schema(
         return false;
       },
     },
-    organisationalName: {
+    organisationName: {
       type: String,
       required: function () {
         if (this.role === "organisation") {
@@ -49,4 +49,4 @@ const userScema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("users", userScema);
+module.exports = mongoose.model("users", userSchema);

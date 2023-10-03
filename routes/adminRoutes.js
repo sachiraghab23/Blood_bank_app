@@ -1,14 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const authMiddleware = require('./../middlewares/userMiddleware');
+const authMiddleware = require('./../middlewares/authMiddleware');
 const adminMiddleware = require('../middlewares/adminMiddleware');
 const {
   getDonorsListController,
   getHospitalsListController,
   getOrganisationsListController,
   deleteDonorController,
-  deleteHospitalController,
-  deleteOrganisationController
 } = require('../controllers/adminController');
 
 //routes
@@ -43,22 +41,6 @@ router.delete(
   authMiddleware,
   adminMiddleware,
   deleteDonorController
-);
-
-//delete hospital from list
-router.delete(
-  '/delete-hospital/:id',
-  authMiddleware,
-  adminMiddleware,
-  deleteHospitalController
-);
-
-//delete organisation from list
-router.delete(
-  '/delete-organisation/:id',
-  authMiddleware,
-  adminMiddleware,
-  deleteOrganisationController
 );
 
 module.exports = router;

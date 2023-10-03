@@ -1,4 +1,4 @@
-const userModel = require('./../models/userModel');
+const userModel = require('../models/userModel');
 const getDonorsListController = async (req, res) => {
   try {
     const donorData = await userModel.find({ role: 'donor' }).sort({ createdAt: -1 });
@@ -20,7 +20,7 @@ const getDonorsListController = async (req, res) => {
 
 const getHospitalsListController = async (req, res) => {
   try {
-    const hospitalData = await userModel.find({ role: 'hospital' }).sort({ createdAt: -1 });
+    const hospitalData = await userModel.find({ role: "hospital" }).sort({ createdAt: -1 });
     return res.status(200).send({
       success: true,
       TotalCount: hospitalData.length,
@@ -67,41 +67,7 @@ const deleteDonorController = async (req, res) => {
     console.log(error);
     return res.status(500).send({
       success: false,
-      message: 'Error while deleting donor',
-      error,
-    });
-  }
-};
-
-const deleteHospitalController = async (req, res) => {
-  try {
-    await userModel.findByIdAndDelete(req.params.id);
-    return res.status(200).send({
-      success: true,
-      message: 'Hospital record deleted successfully'
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send({
-      success: false,
-      message: 'Error while deleting hospital',
-      error,
-    });
-  }
-};
-
-const deleteOrganisationController = async (req, res) => {
-  try {
-    await userModel.findByIdAndDelete(req.params.id);
-    return res.status(200).send({
-      success: true,
-      message: 'Organisation record deleted successfully'
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send({
-      success: false,
-      message: 'Error while deleting organisation',
+      message: 'Error while deleting',
       error,
     });
   }
@@ -112,6 +78,4 @@ module.exports = {
   getHospitalsListController,
   getOrganisationsListController,
   deleteDonorController,
-  deleteHospitalController,
-  deleteOrganisationController
 };

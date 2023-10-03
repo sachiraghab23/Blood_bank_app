@@ -4,7 +4,6 @@ import API from '../../../../services/API';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 
-
 const Organisation = () => {
   const [data, setData] = useState([]);
   const { user } = useSelector(state => state.auth);
@@ -18,7 +17,7 @@ const Organisation = () => {
         }
       }
       if (user?.role === 'hospital') {
-        const { data } = await API.get('/inventory/get-organisations-for-hospital')
+        const { data } = await API.get('/inventory/get-organisation-for-hospitals')
         // console.log(data);
         if (data?.success) {
           setData(data?.organisations);
@@ -30,6 +29,7 @@ const Organisation = () => {
   }
   useEffect(() => {
     getOrg();
+    // eslint-disable-next-line
   }, [user]);
   return (
     <Layout>
@@ -58,7 +58,6 @@ const Organisation = () => {
       </table>
     </Layout>
   )
-
 }
 
 export default Organisation

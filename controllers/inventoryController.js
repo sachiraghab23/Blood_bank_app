@@ -1,22 +1,19 @@
 const mongoose = require("mongoose");
 const inventoryModel = require("./../models/inventoryModel");
-const userModel = require("./../models/userModel");
+const userModel = require("../models/userModel");
 
 /*controller events*/
+//add blood record inventory
 const createInventoryController = async (req, res) => {
   try {
-    const { email, bloodGroup, quantity } = req.body;
+    const { email } = req.body;
     const user = await userModel.findOne({ email });
     if (!user) {
       throw new Error("User not found");
     }
-    // if (inventoryType === "in" && user.role !== "donor") {
-    //   throw new Error("Not a donor account");
-    // }
-    // if (inventoryType === "out" && user.role !== "hospital") {
-    //   throw new Error("Not a hospital");
-    // }
     if (req.body.inventoryType === 'out') {
+      const requestedBloodGroup = req.body.bloodGroup;
+      const requestedQuantityOfBlood = req.body.quantity;
       const organisation = new mongoose.Types.ObjectId(req.body.userId);
       //calculating in blood quantity
       const totalInOfRequestedBlood = await inventoryModel.aggregate([
@@ -24,42 +21,42 @@ const createInventoryController = async (req, res) => {
           $match: {
             organisation,
             inventoryType: 'in',
-            bloodGroup
-          }
-        }, {
-          $group: {
-            _id: '$bloodGroup',
-            total: { $sum: '$quantity' }
-          }
-        }
-      ]);
-      const totalIn = totalInOfRequestedBlood[0]?.total || 0
-      //calculating total out blood quantity
-      const totalOutOfRequestedBloodGroup = await inventoryModel.aggregate([
-        {
-          $match: {
-            organisation,
-            inventoryType: 'out',
-            bloodGroup,
-          }
+            bloodGroup: requestedBloodGroup,
+          },
         },
         {
           $group: {
             _id: '$bloodGroup',
             total: { $sum: '$quantity' }
-          }
-        }
+          },
+        },
       ]);
-      const totalOut = totalOutOfRequestedBloodGroup || 0
-
+      const totalIn = totalInOfRequestedBlood[0]?.total || 0
+      //calculating total out blood quantity
+      const totalOutOfRequestedBlood = await inventoryModel.aggregate([
+        {
+          $match: {
+            organisation,
+            inventoryType: 'out',
+            bloodGroup: requestedBloodGroup,
+          },
+        },
+        {
+          $group: {
+            _id: '$bloodGroup',
+            total: { $sum: '$quantity' },
+          },
+        },
+      ]);
+      const totalOut = totalOutOfRequestedBlood[0]?.total || 0
       //in & out calculation
       const availableQuantityOfBloodGroup = totalIn - totalOut;
       //quantity validation
-      if (availableQuantityOfBloodGroup < quantity) {
+      if (availableQuantityOfBloodGroup < requestedQuantityOfBlood) {
         return res.status(500).send({
           success: false,
-          message:`Only ${availableQuantityOfBloodGroup}ML of ${bloodGroup.toUpperCase()} is available`
-        })
+          message: `Only ${availableQuantityOfBloodGroup}ML of ${requestedBloodGroup.toUpperCase()} is available`
+        });
       }
       req.body.hospital = user?._id;
     } else {
@@ -82,9 +79,10 @@ const createInventoryController = async (req, res) => {
   }
 };
 
+//get all blood records
 const getInventoryController = async (req, res) => {
   try {
-    const inventories = await inventoryModel
+    const inventory = await inventoryModel
       .find({
         organisation: req.body.userId,
       })
@@ -94,13 +92,13 @@ const getInventoryController = async (req, res) => {
     return res.status(200).send({
       success: true,
       message: "get all records successfully",
-      inventories,
+      inventory,
     });
   } catch (error) {
     console.log(error);
     return res.status(500).send({
       success: false,
-      message: "Error in get all inventories",
+      message: "Error in get all Inventory",
       error,
     });
   }
@@ -110,23 +108,24 @@ const getInventoryController = async (req, res) => {
 const getRecentInventoryController = async (req, res) => {
   try {
     const inventory = await inventoryModel.find({
-      organisation:req.body.userId
+      organisation: req.body.userId
     }).limit(3).sort({ createdAt: -1 })
     return res.status(200).send({
       success: true,
       message: 'Recent inventory datas fetched',
-      inventory
-    })
+      inventory,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).send({
       success: false,
       message: 'Error in Recent Inventory API',
-      error
+      error,
     })
   }
 };
 
+//get donor records
 const getDonorsController = async (req, res) => {
   try {
     const organisation = req.body.userId;
@@ -151,8 +150,8 @@ const getDonorsController = async (req, res) => {
 
 const getHospitalController = async (req, res) => {
   try {
-    const donor = req.body.userId;
-    const hospitalId = await inventoryModel.distinct('hospital', { donor })
+    const organisation = req.body.userId;
+    const hospitalId = await inventoryModel.distinct('hospital', { organisation, })
     const hospitals = await userModel.find({
       _id: { $in: hospitalId }
     });
@@ -192,8 +191,9 @@ const getOrganisationController = async (req, res) => {
     })
   }
 };
+
 //get orgs for hospitals
-const getOrgForHospitalController = async (req, res) => {
+const getOrganisationForHospitalController = async (req, res) => {
   try {
     const hospital = req.body.userId;
     const orgId = await inventoryModel.distinct('organisation', { hospital })
@@ -203,7 +203,7 @@ const getOrgForHospitalController = async (req, res) => {
     return res.status(200).send({
       success: true,
       message: ' Hospital Org data fetched successfully',
-      organisations
+      organisations,
     })
   } catch (error) {
     console.log(error);
@@ -214,6 +214,7 @@ const getOrgForHospitalController = async (req, res) => {
     })
   }
 };
+
 //get hospitals blood records
 const getInventoryHospitalController = async (req, res) => {
   try {
@@ -244,7 +245,7 @@ module.exports = {
   getDonorsController,
   getHospitalController,
   getOrganisationController,
-  getOrgForHospitalController,
+  getOrganisationForHospitalController,
   getInventoryHospitalController,
   getRecentInventoryController,
 };

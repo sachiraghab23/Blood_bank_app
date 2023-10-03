@@ -14,7 +14,7 @@ const Analytics = () => {
     '#4942e4',
     '#0079ff',
     '#ff0060',
-    '#22a699'
+    '#22a699',
   ];
   //get blood group data
   const getBloodGroupData = async () => {
@@ -28,6 +28,7 @@ const Analytics = () => {
       console.log(error);
     }
   }
+
   //lifecycle method
   useEffect(() => {
     getBloodGroupData();
@@ -74,8 +75,8 @@ const Analytics = () => {
           </div>
         ))}
       </div>
-      <div className="container mt-3">
-        <h1>Recent Blood transactions</h1>
+      <div className="container my-3">
+        <h1 className='my-3'>Recent Blood transactions</h1>
         <table className="table">
           <thead>
             <tr>

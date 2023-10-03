@@ -11,15 +11,15 @@ const Sidebar = () => {
       <div className="menu">
         {user?.role === 'organisation' && (
           <>
-            <div className={`menu-item ${location.pathname = '/' && 'active'}`} key={menu.name}>
+            <div className={`menu-item ${location.pathname === '/' && 'active'}`}>
               <i className='fa-solid fa-warehouse'></i>
               <Link to='/'>Inventory</Link>
             </div>
-            <div className={`menu-item ${location.pathname = '/donor' && 'active'}`} key={menu.name}>
+            <div className={`menu-item ${location.pathname === '/donor' && 'active'}`}>
               <i className='fa-solid fa-hand-holding-medical'></i>
               <Link to='/donor'>Donor</Link>
             </div>
-            <div className={`menu-item ${location.pathname = '/hospital' && 'active'}`} key={menu.name}>
+            <div className={`menu-item ${location.pathname === '/hospital' && 'active'}`}>
               <i className='fa-solid fa-hospital'></i>
               <Link to='/hospital'>Hospital</Link>
             </div>
@@ -27,15 +27,15 @@ const Sidebar = () => {
         )}
         {user?.role === 'admin' && (
           <>
-            <div className={`menu-item ${location.pathname = '/donor-list' && 'active'}`} key={menu.name}>
+            <div className={`menu-item ${location.pathname === '/donor-list' && 'active'}`}>
               <i className='fa-solid fa-warehouse'></i>
               <Link to='/donor-list'>Donor list</Link>
             </div>
-            <div className={`menu-item ${location.pathname = '/hospital-list' && 'active'}`} key={menu.name}>
+            <div className={`menu-item ${location.pathname === '/hospital-list' && 'active'}`}>
               <i className='fa-solid fa-hand-holding-medical'></i>
               <Link to='/hospital-list'>Hospital list</Link>
             </div>
-            <div className={`menu-item ${location.pathname = '/organisation-list' && 'active'}`} key={menu.name}>
+            <div className={`menu-item ${location.pathname === '/organisation-list' && 'active'}`}>
               <i className='fa-solid fa-hospital'></i>
               <Link to='/organisation-list'>Organisation list</Link>
             </div>
@@ -43,7 +43,7 @@ const Sidebar = () => {
         )}
         {(user?.role === 'donor' || user?.role === 'hospital') && (
           <>
-            <div className={`menu-item ${location.pathname = '/organisation' && 'active'}`} key={menu.name}>
+            <div className={`menu-item ${location.pathname === '/organisation' && 'active'}`}>
               <i className='fa-sharp fa-solid fa-building-ngo'></i>
               <Link to='/organisation'>Organisation</Link>
             </div>
@@ -51,7 +51,7 @@ const Sidebar = () => {
         )}
         {(user?.role === 'hospital') && (
           <>
-            <div className={`menu-item ${location.pathname = '/consumer' && 'active'}`} key={menu.name}>
+            <div className={`menu-item ${location.pathname === '/consumer' && 'active'}`}>
               <i className='fa-sharp fa-solid fa-building-ngo'></i>
               <Link to='/consumer'>Organisation</Link>
             </div>
@@ -59,21 +59,12 @@ const Sidebar = () => {
         )}
         {(user?.role === 'donor') && (
           <>
-            <div className={`menu-item ${location.pathname = '/consumer' && 'active'}`} key={menu.name}>
+            <div className={`menu-item ${location.pathname === '/consumer' && 'active'}`}>
               <i className='fa-sharp fa-solid fa-building-ngo'></i>
               <Link to='/donation'>Donation</Link>
             </div>
           </>
         )}
-
-        {/* {userMenu.map((menu) => {
-          return (
-            <div className={`menu-item ${isActive && 'active'}`} key={menu.name}>
-              <i className={menu.icon}></i>
-              <Link to={menu.path}>{menu.name}</Link>
-            </div>
-          )
-        })} */}
       </div>
     </div>
   )

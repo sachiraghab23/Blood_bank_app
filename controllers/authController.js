@@ -1,6 +1,7 @@
 const userModel = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+
 const registerController = async (req, res) => {
   try {
     const existingUser = await userModel.findOne({ email: req.body.email });
@@ -32,13 +33,14 @@ const registerController = async (req, res) => {
     });
   }
 };
+
 const loginController = async (req, res) => {
   try {
     const user = await userModel.findOne({ email: req.body.email });
     if (!user) {
       return res.status(404).send({
         success: false,
-        message: "User not found",
+        message: "Invalid credentials",
       });
     }
     //check role
@@ -59,12 +61,12 @@ const loginController = async (req, res) => {
       });
     }
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "1d",
     });
     return res.status(200).send({
       success: true,
-      messsage: "Login successful",
-      token,
+      messsage: "Login successfully",
+      token,user
     });
   } catch (error) {
     console.log(error);
@@ -75,6 +77,7 @@ const loginController = async (req, res) => {
     });
   }
 };
+
 const currentUserController = async (req, res) => {
   try {
     const user = await userModel.findOne({ _id: req.body.userId });
@@ -92,4 +95,5 @@ const currentUserController = async (req, res) => {
     });
   }
 };
+
 module.exports = { registerController, loginController, currentUserController };

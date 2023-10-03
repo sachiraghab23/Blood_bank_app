@@ -9,9 +9,10 @@ const Modal = () => {
   const [quantity, setQuantity] = useState(0);
   const [email, setEmail] = useState('');
   const { user } = useSelector(state => state.auth);
+
   const handleModalSubmit = async () => {
     try {
-      if (!bloodGroup || !quantity || !donorEmail) {
+      if (!bloodGroup || !quantity || !email) {
         return alert('Please provide all fields');
       }
       const { data } = await API.post('/inventory/create-inventory', {
@@ -30,11 +31,11 @@ const Modal = () => {
   }
 
   return (
-    <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div className="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard='false'>
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h1 className="modal-title fs-5" id="exampleModalLabel">Manage Blood Record</h1>
+            <h1 className="modal-title fs-5" id="staticBackdropLabel">Manage Blood Record</h1>
             <button
               type="button"
               className="btn-close"
@@ -43,7 +44,7 @@ const Modal = () => {
             />
           </div>
           <div className="modal-body">
-            <div className="d-flex">
+            <div className="d-flex mb-3">
               Blood Type: &nbsp;
               <div className="form-check ms-3">
                 <input type="radio" name='inRadio' defaultChecked className='form-check-input' value={'in'} onChange={(e) => setInventoryType(e.target.value)} />
@@ -65,7 +66,7 @@ const Modal = () => {
             </div>
             <select
               className='form-select'
-              aria-label='Default select example'
+              aria-label='Default'
               onChange={(e) => setBloodGroup(e.target.value)}
             >
               <option defaultValue={'select blood group'}>Select Blood Group</option>
@@ -97,7 +98,6 @@ const Modal = () => {
             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="button" className="btn btn-primary" onClick={handleModalSubmit}>Submit</button>
           </div>
-
         </div>
       </div>
     </div>

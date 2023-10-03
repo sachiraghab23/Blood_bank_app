@@ -3,10 +3,10 @@ import store from './../redux/store';
 export const handleLogin = (e, email, password, role) => {
   e.preventDefault();
   try {
-    if(!role || !email || !password){
+    if (!role || !email || !password) {
       return alert('Please provide all fields');
     }
-    store.dispatch(userLogin({email,password,role}));
+    store.dispatch(userLogin({ email, password, role }));
   } catch (error) {
     console.log(error);
   }
@@ -14,29 +14,31 @@ export const handleLogin = (e, email, password, role) => {
 
 export const handleRegister = (
   e,
-  role,
   name,
-  organisationName,
-  hospitalName,
-  phone,
+  role,
   email,
-  website,
+  password,
+  phone,
+  organisationName,
   address,
-  password
+  hospitalName,
+  website,
 ) => {
   e.preventDefault();
   try {
-    store.dispatch(userRegister(
-      {name,
-      role,
-      organisationName,
-      hospitalName,
-      phone,
-      email,
-      website,
-      address,
-      password}
-    ));
+    store.dispatch(
+      userRegister({
+        name,
+        role,
+        organisationName,
+        hospitalName,
+        phone,
+        email,
+        website,
+        address,
+        password
+      })
+    );
   } catch (error) {
     console.log(error);
   }

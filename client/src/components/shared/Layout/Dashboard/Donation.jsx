@@ -2,28 +2,33 @@ import React, { useEffect, useState } from 'react'
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import API from '../../../../services/API';
+import Layout from './../Layout';
 
 const Donation = () => {
   const [data, setData] = useState([]);
   const { user } = useSelector(state => state.auth);
+
   const getDonors = async () => {
     try {
       const { data } = await API.post('/inventory/get-inventory-hospital', {
         filters: {
           inventoryType: 'in', donor: user?._id
         }
-      })
-      console.log(data);
+      });      
       if (data?.success) {
         setData(data?.inventory);
+        console.log(data);
       }
     } catch (error) {
       console.log(error);
     }
   }
+
   useEffect(() => {
     getDonors();
+    // eslint-disable-next-line
   }, []);
+
   return (
     <Layout>
       <div className="container mt-4">

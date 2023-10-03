@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react'
-import {useDispatch} from 'react-redux';
-import {Navigate} from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import { getCurrentUser } from '../../redux/features/auth/authActions';
-import API from './../../services/API';
+import API from '../../services/API';
 
-const ProtectedRoutes = ({children}) => {
+const ProtectedRoutes = ({ children }) => {
   const dispatch = useDispatch();
 
   //get current user
-  const getUser = async () =>{
+  const getUser = async () => {
     try {
-      const {data} = await API.get('/auth/current-user');
-      if(data?.success){
+      const { data } = await API.get('/auth/current-user');
+      if (data?.success) {
         dispatch(getCurrentUser(data));
       }
     } catch (error) {
@@ -19,13 +19,13 @@ const ProtectedRoutes = ({children}) => {
       console.log(error);
     }
   }
-  useEffect(()=>{
+  useEffect(() => {
     getUser();
   });
-  
-  if(localStorage.getItem('token')){
+
+  if (localStorage.getItem('token')) {
     return children;
-  }else{
+  } else {
     return <Navigate to='/login' />
   }
 }

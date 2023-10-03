@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from './../../components/shared/Layout/Layout';
 import moment from 'moment';
+import API from '../../services/API';
 
 const HospitalList = () => {
   const [data, setData] = useState([])
+
+  //get hospital records
   const getHospitalList = async () => {
     try {
       const { data } = await API.get('/admin/hospital-list');
@@ -15,6 +18,7 @@ const HospitalList = () => {
       console.log(error);
     }
   }
+
   useEffect(() => {
     getHospitalList();
   }, []);
@@ -24,13 +28,14 @@ const HospitalList = () => {
     try {
       let answer = window.prompt('Are you sure want to delete this hospital', 'Sure');
       if (!answer) return;
-      const { data } = await API.delete(`/admin/delete-hospital/${id}`);
+      const { data } = await API.delete(`/admin/delete-donor/${id}`);
       alert(data?.message)
       window.location.reload();
     } catch (error) {
       console.log(error);
     }
   }
+  
   return (
     <Layout>
       <h1>Hospital List</h1>

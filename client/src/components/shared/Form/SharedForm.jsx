@@ -19,13 +19,13 @@ const SharedForm = ({ submitBtn, formTitle, formType }) => {
         if(formType==='login'){
           return handleLogin(e,email,password,role);
         }else if(formType === 'register'){
-          return handleRegister(e,name,organisationName, hospitalName, phone, email, website, address, password)
+          return handleRegister(e, name, organisationName, hospitalName, phone, email, website, address, password);
         }
       }}>
         <h1 className="text-center">{formTitle}</h1>
         <hr />
         <div className="d-flex mb-3">
-          <div className="form-check ms-2">
+          <div className="form-check">
             <input
               type="radio"
               className="form-check-input"
@@ -85,7 +85,7 @@ const SharedForm = ({ submitBtn, formTitle, formType }) => {
               return (
                 <>
                   <InputType
-                    labelFor={"email"}
+                    labelFor={"forEmail"}
                     labelText={"Email"}
                     inputType={"email"}
                     name={"email"}
@@ -93,7 +93,7 @@ const SharedForm = ({ submitBtn, formTitle, formType }) => {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   <InputType
-                    labelFor={"password"}
+                    labelFor={"forPassword"}
                     labelText={"Password"}
                     inputType={"password"}
                     name={"password"}
@@ -108,7 +108,7 @@ const SharedForm = ({ submitBtn, formTitle, formType }) => {
                 <>
                   {(role === "donor" || role === "admin") && (
                     <InputType
-                      labelFor={"name"}
+                      labelFor={"forName"}
                       labelText={"Name"}
                       inputType={"text"}
                       name={"name"}
@@ -118,7 +118,7 @@ const SharedForm = ({ submitBtn, formTitle, formType }) => {
                   )}
                   {role === "organisation" && (
                     <InputType
-                      labelFor={"organisationName"}
+                      labelFor={"forOrganisationName"}
                       labelText={"Organisation Name"}
                       inputType={"text"}
                       name={"organisationName"}
@@ -128,7 +128,7 @@ const SharedForm = ({ submitBtn, formTitle, formType }) => {
                   )}
                   {role === "hospital" && (
                     <InputType
-                      labelFor={"hospitalName"}
+                      labelFor={"forHospitalName"}
                       labelText={"Hospital Name"}
                       inputType={"text"}
                       name={"hospitalName"}
@@ -137,7 +137,7 @@ const SharedForm = ({ submitBtn, formTitle, formType }) => {
                     />
                   )}
                   <InputType
-                    labelFor={"phone"}
+                    labelFor={"forPhone"}
                     labelText={"Phone"}
                     inputType={"text"}
                     name={"phone"}
@@ -145,7 +145,7 @@ const SharedForm = ({ submitBtn, formTitle, formType }) => {
                     onChange={(e) => setPhone(e.target.value)}
                   />
                   <InputType
-                    labelFor={"email"}
+                    labelFor={"forEmail"}
                     labelText={"Email"}
                     inputType={"email"}
                     name={"email"}
@@ -154,7 +154,7 @@ const SharedForm = ({ submitBtn, formTitle, formType }) => {
                   />
 
                   <InputType
-                    labelFor={"website"}
+                    labelFor={"forWebsite"}
                     labelText={"Website"}
                     inputType={"text"}
                     name={"website"}
@@ -162,7 +162,7 @@ const SharedForm = ({ submitBtn, formTitle, formType }) => {
                     onChange={(e) => setWebsite(e.target.value)}
                   />
                   <InputType
-                    labelFor={"address"}
+                    labelFor={"forAddress"}
                     labelText={"Address"}
                     inputType={"text"}
                     name={"address"}
@@ -170,7 +170,7 @@ const SharedForm = ({ submitBtn, formTitle, formType }) => {
                     onChange={(e) => setAddress(e.target.value)}
                   />
                   <InputType
-                    labelFor={"password"}
+                    labelFor={"forPassword"}
                     labelText={"Password"}
                     inputType={"password"}
                     name={"password"}
@@ -184,14 +184,14 @@ const SharedForm = ({ submitBtn, formTitle, formType }) => {
           }
         })()}
 
-        <div className="d-flex">
+        <div className="d-flex flex-row justify-content-between">
           {formType === 'login' ? (
-            <p>Not registered yet? Register
-              <Link to='/register'>here</Link>
+            <p>Not registered yet?
+              <Link to='/register'>Register</Link>
             </p>
           ) : (
-            <p>Already registered? Login
-              <Link to='/login'>here</Link>
+            <p>Already registered?
+              <Link to='/login'>Login</Link>
             </p>
           )}
           <button className="btn btn-primary">{submitBtn}</button>

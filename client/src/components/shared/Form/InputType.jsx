@@ -4,7 +4,7 @@ const InputType = ({ labelText, labelFor, inputType, value, onChange, name }) =>
   return (
     <>
       <div className="mb-1">
-        <label for={labelFor} className="form-label">
+        <label htmlFor={labelFor} className="form-label">
           {labelText}
         </label>
         <input

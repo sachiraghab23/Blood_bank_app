@@ -1,5 +1,5 @@
 {
-  "name": "blood-bank-web-application",
+  "name": "blood-bank-web-app",
   "version": "1.0.0",
   "description": "MERN Blood bank application",
   "main": "server.js",

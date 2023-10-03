@@ -5,6 +5,7 @@ import moment from 'moment';
 
 const OrganisationList = () => {
   const [data, setData] = useState([])
+
   const getOrganisationList = async () => {
     try {
       const { data } = await API.get('/admin/organisation-list');
@@ -16,6 +17,7 @@ const OrganisationList = () => {
       console.log(error);
     }
   }
+
   useEffect(() => {
     getOrganisationList();
   }, []);
@@ -25,13 +27,14 @@ const OrganisationList = () => {
     try {
       let answer = window.prompt('Are you sure want to delete this organisation', 'Sure');
       if (!answer) return;
-      const { data } = await API.delete(`/admin/delete-organisation/${id}`);
+      const { data } = await API.delete(`/admin/delete-donor/${id}`);
       alert(data?.message)
       window.location.reload();
     } catch (error) {
       console.log(error);
     }
   }
+
   return (
     <Layout>
       <h1>Organisation List</h1>

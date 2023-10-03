@@ -7,6 +7,7 @@ import API from '../../../../services/API';
 const Consumer = () => {
   const [data, setData] = useState([]);
   const { user } = useSelector(state => state.auth);
+
   const getConsumers = async () => {
     try {
       const { data } = await API.post('/inventory/get-inventory-hospital', {
@@ -14,16 +15,18 @@ const Consumer = () => {
           inventoryType: 'out', hospital: user?._id
         }
       })
-      console.log(data);
       if (data?.success) {
         setData(data?.inventory);
+        console.log(data);
       }
     } catch (error) {
       console.log(error);
     }
   }
+
   useEffect(() => {
     getConsumers();
+    // eslint-disable-next-line
   }, []);
   return (
     <Layout>
@@ -46,7 +49,6 @@ const Consumer = () => {
                 <td>{record.inventoryType}</td>
                 <td>{record.quantity}</td>
                 <td>{record.email}</td>
-                {/* <td>{record.phone}</td> */}
                 <td>{moment(record.createdAt).format('DD/MM/YYYY hh:mm A')}</td>
               </tr>
             ))}

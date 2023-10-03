@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const inventoryScheme = mongoose.Schema(
+const inventoryScheme = new mongoose.Schema(
   {
     inventoryType: {
       type: String,
@@ -18,7 +18,7 @@ const inventoryScheme = mongoose.Schema(
     },
     email: {
       type: String,
-      required: [true,'Donor email is required'],
+      required: [true,"Donor email is required"],
     },
     organisation: {
       type: mongoose.Schema.Types.ObjectId,

@@ -5,6 +5,7 @@ import moment from 'moment';
 
 const DonorList = () => {
   const [data, setData] = useState([])
+  //find donor records
   const getDonorList = async () => {
     try {
       const { data } = await API.get('/admin/donor-list');
@@ -16,6 +17,7 @@ const DonorList = () => {
       console.log(error);
     }
   }
+
   useEffect(() => {
     getDonorList();
   }, []);
@@ -32,6 +34,7 @@ const DonorList = () => {
       console.log(error);
     }
   }
+
   return (
     <Layout>
       <h1>Donor List</h1>

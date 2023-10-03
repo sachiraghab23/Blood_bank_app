@@ -3,8 +3,8 @@ import { ToastContainer } from 'react-toastify';
 import HomePage from "./pages/HomePage";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-import ProtectedRoutes from "./components/Routes/ProtectedRoutes";
-import PublicRoutes from "./components/Routes/PublicRoutes";
+import ProtectedRoute from "./components/Routes/ProtectedRoute";
+import PublicRoute from "./components/Routes/PublicRoute";
 import Donor from "./components/shared/Layout/Dashboard/Donor";
 import Hospital from "./components/shared/Layout/Dashboard/Hospital";
 import Organisation from "./components/shared/Layout/Dashboard/Organisation";
@@ -15,68 +15,69 @@ import DonorList from "./pages/Admin/DonorList";
 import HospitalList from "./pages/Admin/HospitalList";
 import OrganisationList from "./pages/Admin/OrganisationList";
 import AdminHome from "./pages/Admin/AdminHome";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <>
       <ToastContainer />
       <Routes>
-        <Route path="/" element={
-          <ProtectedRoutes>
-            <HomePage />
-          </ProtectedRoutes>} />
-        <Route path="/donor" element={
-          <ProtectedRoutes>
-            <Donor />
-          </ProtectedRoutes>} />
-        <Route path="/organisation" element={
-          <ProtectedRoutes>
-            <Organisation />
-          </ProtectedRoutes>} />
-        <Route path="/consumer" element={
-          <ProtectedRoutes>
-            <Consumer />
-          </ProtectedRoutes>} />
-        <Route path="/donation" element={
-          <ProtectedRoutes>
-            <Donation />
-          </ProtectedRoutes>} />
-        <Route path="/hospital" element={
-          <ProtectedRoutes>
-            <Hospital />
-          </ProtectedRoutes>} />
-        <Route path="/analytics" element={
-          <ProtectedRoutes>
-            <Analytics />
-          </ProtectedRoutes>} />
         <Route path="/admin" element={
-          <ProtectedRoutes>
+          <ProtectedRoute>
             <AdminHome />
-          </ProtectedRoutes>} />
+          </ProtectedRoute>} />
         <Route path="/donor-list" element={
-          <ProtectedRoutes>
+          <ProtectedRoute>
             <DonorList />
-          </ProtectedRoutes>
+          </ProtectedRoute>
         } />
         <Route path="/hospital-list" element={
-          <ProtectedRoutes>
+          <ProtectedRoute>
             <HospitalList />
-          </ProtectedRoutes>
+          </ProtectedRoute>
         } />
         <Route path="/organisation-list" element={
-          <ProtectedRoutes>
+          <ProtectedRoute>
             <OrganisationList />
-          </ProtectedRoutes>
+          </ProtectedRoute>
         } />
+        <Route path="/hospital" element={
+          <ProtectedRoute>
+            <Hospital />
+          </ProtectedRoute>} />
+        <Route path="/analytics" element={
+          <ProtectedRoute>
+            <Analytics />
+          </ProtectedRoute>} />
+        <Route path="/consumer" element={
+          <ProtectedRoute>
+            <Consumer />
+          </ProtectedRoute>} />
+        <Route path="/donation" element={
+          <ProtectedRoute>
+            <Donation />
+          </ProtectedRoute>} />
+        <Route path="/organisation" element={
+          <ProtectedRoute>
+            <Organisation />
+          </ProtectedRoute>} />
+        <Route path="/donor" element={
+          <ProtectedRoute>
+            <Donor />
+          </ProtectedRoute>} />
+        <Route path="/" element={
+          <ProtectedRoute>
+            <HomePage />
+          </ProtectedRoute>} />
         <Route path="/login" element={
-          <PublicRoutes>
+          <PublicRoute>
             <Login />
-          </PublicRoutes>
+          </PublicRoute>
         } />
         <Route path="/register" element={
-          <PublicRoutes>
+          <PublicRoute>
             <Register />
-          </PublicRoutes>
+          </PublicRoute>
         } />
       </Routes>
     </>
