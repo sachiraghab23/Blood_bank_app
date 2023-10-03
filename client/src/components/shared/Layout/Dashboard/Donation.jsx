@@ -22,7 +22,7 @@ const Donation = () => {
     }
   }
   useEffect(() => {
-    getConsumers();
+    getDonors();
   }, []);
   return (
     <Layout>

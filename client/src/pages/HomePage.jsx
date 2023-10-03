@@ -4,11 +4,13 @@ import Spinner from '../components/shared/Spinner/Spinner';
 import Layout from './../components/shared/Layout/Layout';
 import Modal from '../components/shared/modals/Modal';
 import API from './../services/API';
-import { moment } from 'moment';
+import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
-  const { loading, error } = useSelector((state) => state.auth);
+  const { loading, error, user } = useSelector((state) => state.auth);
   const { data, setData } = useState([]);
+  const navigate = useNavigate();
   //get function
   const getBloodRecords = async () => {
     try {
@@ -25,8 +27,8 @@ const HomePage = () => {
   });
   return (
     <>
-
       <Layout>
+        {user?.role === 'admin' && navigate('/admin')}
         {error && <span>{alert(error)}</span>}
         {loading ? (
           <Spinner />

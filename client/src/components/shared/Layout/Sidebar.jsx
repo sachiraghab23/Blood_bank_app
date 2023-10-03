@@ -25,6 +25,22 @@ const Sidebar = () => {
             </div>
           </>
         )}
+        {user?.role === 'admin' && (
+          <>
+            <div className={`menu-item ${location.pathname = '/donor-list' && 'active'}`} key={menu.name}>
+              <i className='fa-solid fa-warehouse'></i>
+              <Link to='/donor-list'>Donor list</Link>
+            </div>
+            <div className={`menu-item ${location.pathname = '/hospital-list' && 'active'}`} key={menu.name}>
+              <i className='fa-solid fa-hand-holding-medical'></i>
+              <Link to='/hospital-list'>Hospital list</Link>
+            </div>
+            <div className={`menu-item ${location.pathname = '/organisation-list' && 'active'}`} key={menu.name}>
+              <i className='fa-solid fa-hospital'></i>
+              <Link to='/organisation-list'>Organisation list</Link>
+            </div>
+          </>
+        )}
         {(user?.role === 'donor' || user?.role === 'hospital') && (
           <>
             <div className={`menu-item ${location.pathname = '/organisation' && 'active'}`} key={menu.name}>
